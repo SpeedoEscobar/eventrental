@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Event Rental Hub</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand">FS Event & Rental Hub</div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#services">Services</a>
+    <a href="#inventory">Inventory</a>
+    <a href="#contact">Contact</a>
+    <a class="ghost" href="/login.html">Admin</a>
+  </nav>
+</header>
+
+<section id="home" class="hero">
+  <h1>Your Event’s Best Ally</h1>
+  <p>Rent chairs, tables, tents and more — book online, pay securely.</p>
+  <button id="goInventory">Browse Inventory</button>
+</section>
+
+<section id="services" class="section">
+  <h2>Event Essentials</h2>
+  <div class="cards">
+    <div class="card"><h3>Equipment Rental</h3><p>Quality items for every occasion.</p></div>
+    <div class="card"><h3>Delivery & Setup</h3><p>We can deliver and set up for you.</p></div>
+    <div class="card"><h3>Easy Booking</h3><p>Pick dates, quantities, pay online.</p></div>
+  </div>
+</section>
+
+<section id="inventory" class="section">
+  <h2>Inventory</h2>
+
+  <div class="grid2">
+    <div class="panel">
+      <h3>Pick Dates</h3>
+      <div class="row">
+        <label>Start</label>
+        <input type="date" id="startDate"/>
+      </div>
+      <div class="row">
+        <label>End</label>
+        <input type="date" id="endDate"/>
+      </div>
+
+      <h3 style="margin-top:16px;">Your Cart</h3>
+      <div id="cart"></div>
+      <div class="totalRow">
+        <span>Total</span>
+        <strong id="total">0</strong>
+      </div>
+
+      <button id="checkAvailability">Check availability</button>
+      <div id="availabilityResult" class="note"></div>
+
+      <h3 style="margin-top:16px;">Customer info</h3>
+      <div class="row"><label>Name</label><input id="custName" placeholder="Your name"/></div>
+      <div class="row"><label>Email</label><input id="custEmail" placeholder="you@email.com"/></div>
+      <div class="row"><label>Phone</label><input id="custPhone" placeholder="e.g. 024xxxxxxx"/></div>
+
+      <h3 style="margin-top:16px;">Delivery Location</h3>
+      <div class="row"><label>Address / Location</label><input id="deliveryAddress" placeholder="e.g. East Legon, near ABC"/></div>
+      <div class="row"><label>City/Town</label><input id="deliveryCity" placeholder="e.g. Accra"/></div>
+      <div class="row"><label>Landmark</label><input id="deliveryLandmark" placeholder="e.g. close to Shell station"/></div>
+
+      <button id="bookAndPay" class="primary">Book & Pay</button>
+      <div id="payMsg" class="note"></div>
+
+      <!-- shows payment result when Paystack returns -->
+      <div id="paymentStatus" class="note"></div>
+    </div>
+
+    <div class="panel">
+      <h3>Available Items</h3>
+      <div id="items" class="items"></div>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="section">
+  <h2>Contact</h2>
+  <p class="muted">Need delivery, setup, or custom packages? Message us.</p>
+  <div class="contactBox">
+    <div><strong>Phone:</strong> +233 598 382 866</div>
+    <div><strong>Email:</strong> info@eventrentalhub.com</div>
+  </div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>

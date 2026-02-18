@@ -1,0 +1,58 @@
+body { margin:0; font-family: Arial, sans-serif; background:#f5f5f5; color:#111; }
+
+.topbar {
+  display:flex; justify-content:space-between; align-items:center;
+  padding:14px 22px; background:#111; color:#fff; position:sticky; top:0;
+}
+.brand { font-weight:800; letter-spacing:.3px; }
+.topbar a { color:#fff; text-decoration:none; margin-left:14px; }
+.topbar a.ghost { border:1px solid #444; padding:6px 10px; border-radius:10px; }
+
+.hero {
+  min-height: 70vh;
+  display:flex; flex-direction:column; justify-content:center; align-items:center;
+  text-align:center;
+  padding:60px 16px;
+  background:linear-gradient(rgba(0,0,0,.55), rgba(0,0,0,.55)),
+    url("https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1400&q=60");
+  background-size:cover; background-position:center;
+  color:#fff;
+}
+.hero button { padding:12px 16px; border:0; border-radius:12px; font-weight:700; cursor:pointer; }
+
+.section { padding:50px 16px; max-width:1100px; margin:0 auto; }
+.cards { display:flex; gap:14px; flex-wrap:wrap; justify-content:center; }
+.card {
+  background:#fff; padding:18px; border-radius:14px; width:280px;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.grid2 { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+@media (max-width: 900px){ .grid2 { grid-template-columns: 1fr; } }
+
+.panel { background:#fff; border-radius:14px; padding:18px; box-shadow:0 2px 10px rgba(0,0,0,.08); }
+.items { display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+@media (max-width: 900px){ .items { grid-template-columns: 1fr; } }
+
+.itemCard { border:1px solid #eee; border-radius:14px; padding:14px; }
+.itemCard button { padding:10px 12px; border:0; border-radius:12px; cursor:pointer; background:#2f9e44; color:#fff; font-weight:700; }
+
+.row { display:flex; flex-direction:column; gap:6px; margin:10px 0; }
+.row input { padding:11px; border:1px solid #ddd; border-radius:12px; }
+
+.rowSpace { display:flex; justify-content:space-between; align-items:center; margin-top:10px; }
+
+.cartLine { display:flex; justify-content:space-between; gap:10px; padding:10px; border:1px solid #eee; border-radius:12px; margin-bottom:10px; }
+.right { text-align:right; }
+.qtyRow { display:flex; gap:6px; align-items:center; justify-content:flex-end; margin-top:6px; }
+.qtyRow button { padding:6px 10px; border-radius:10px; border:1px solid #ddd; background:#fff; cursor:pointer; }
+.qtyRow .danger { border-color:#ffb3b3; }
+
+.totalRow { display:flex; justify-content:space-between; align-items:center; margin:12px 0; }
+.primary { width:100%; padding:12px; border:0; border-radius:12px; background:#0b5; color:#fff; font-weight:800; cursor:pointer; }
+
+.note { margin-top:10px; color:#333; }
+.muted { color:#666; }
+.small { font-size: 12px; }
+
+.contactBox { background:#fff; border-radius:14px; padding:16px; box-shadow:0 2px 10px rgba(0,0,0,.08); }

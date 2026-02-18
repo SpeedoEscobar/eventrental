@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="style.css"/>
+</head>
+<body>
+  <div class="section" style="max-width:520px;">
+    <h2>Admin Login</h2>
+    <div class="panel">
+      <div class="row"><label>Email</label><input id="email" type="email" placeholder="admin@..."/></div>
+      <div class="row"><label>Password</label><input id="password" type="password" placeholder="••••••••"/></div>
+      <button class="primary" id="loginBtn">Login</button>
+      <div class="note" id="msg"></div>
+    </div>
+  </div>
+<script>
+document.getElementById("loginBtn").onclick = async () => {
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
+  const msg = document.getElementById("msg");
+  msg.textContent = "";
+
+  const res = await fetch("/api/auth/login", {
+    method:"POST",
+    headers:{ "Content-Type":"application/json" },
+    body: JSON.stringify({ email, password })
+  });
+  const data = await res.json();
+  if(!res.ok) return msg.textContent = data.error || "Login failed";
+  localStorage.setItem("token", data.token);
+  window.location.href = "/admin.html";
+};
+</script>
+</body>
+</html>
