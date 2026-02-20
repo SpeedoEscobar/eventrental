@@ -1,7 +1,7 @@
 "use strict";
 
 // ===================================
-// F S Rental - Frontend Application
+// FS Rental - Frontend Application
 // ===================================
 
 // DOM Elements
@@ -36,7 +36,7 @@ function getItemCategory(name) {
   if (lowerName.includes("table")) return "seating";
   if (lowerName.includes("tent") || lowerName.includes("canopy") || lowerName.includes("gazebo")) return "tents";
   if (lowerName.includes("sound") || lowerName.includes("speaker") || lowerName.includes("microphone") || lowerName.includes("pa system")) return "sound";
-  if (lowerName.includes("light") || lowerName.includes("lamp") || lowerName.includes("bulb")) return "sound";
+  if (lowerName.includes("light") || lowerName.includes("lamp") || lowerName.includes("bulb")) return "lighting";
   if (lowerName.includes("decor") || lowerName.includes("flower") || lowerName.includes("backdrop") || lowerName.includes("drape")) return "decor";
   return "all";
 }
