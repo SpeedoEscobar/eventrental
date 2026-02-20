@@ -222,12 +222,12 @@ app.get("/api/admin/items", requireAdmin, async (req, res) => {
 });
 
 app.post("/api/admin/items", requireAdmin, async (req, res) => {
-  const { name, description, price_per_day, quantity_total, is_active = 1 } = req.body;
+  const { name, description, price_per_day, quantity_total, is_active = 1, image_url, category } = req.body;
   if (!name || !price_per_day || !quantity_total) return res.status(400).json({ error: "Missing fields" });
 
   const r = await run(
-    `INSERT INTO items(name, description, price_per_day, quantity_total, is_active) VALUES (?,?,?,?,?)`,
-    [name, description || "", Number(price_per_day), Number(quantity_total), Number(is_active)]
+    `INSERT INTO items(name, description, price_per_day, quantity_total, is_active, image_url, category) VALUES (?,?,?,?,?,?,?)`,
+    [name, description || "", Number(price_per_day), Number(quantity_total), Number(is_active), image_url || "", category || ""]
   );
 
   res.json({ ok: true, id: r.lastID });
@@ -235,11 +235,11 @@ app.post("/api/admin/items", requireAdmin, async (req, res) => {
 
 app.put("/api/admin/items/:id", requireAdmin, async (req, res) => {
   const { id } = req.params;
-  const { name, description, price_per_day, quantity_total, is_active } = req.body;
+  const { name, description, price_per_day, quantity_total, is_active, image_url, category } = req.body;
 
   await run(
-    `UPDATE items SET name=?, description=?, price_per_day=?, quantity_total=?, is_active=? WHERE id=?`,
-    [name, description || "", Number(price_per_day), Number(quantity_total), Number(is_active), Number(id)]
+    `UPDATE items SET name=?, description=?, price_per_day=?, quantity_total=?, is_active=?, image_url=?, category=? WHERE id=?`,
+    [name, description || "", Number(price_per_day), Number(quantity_total), Number(is_active), image_url || "", category || "", Number(id)]
   );
 
   res.json({ ok: true });
@@ -287,6 +287,12 @@ app.put("/api/admin/bookings/:id/mark-paid", requireAdmin, async (req, res) => {
 app.put("/api/admin/bookings/:id/cancel", requireAdmin, async (req, res) => {
   const { id } = req.params;
   await run(`UPDATE bookings SET status = 'cancelled' WHERE id = ?`, [Number(id)]);
+  res.json({ ok: true });
+});
+
+app.put("/api/admin/bookings/:id/complete", requireAdmin, async (req, res) => {
+  const { id } = req.params;
+  await run(`UPDATE bookings SET status = 'completed' WHERE id = ?`, [Number(id)]);
   res.json({ ok: true });
 });
 

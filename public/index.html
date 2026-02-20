@@ -3,94 +3,359 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Event Rental Hub</title>
+  <title>FS Rental - Premium Event Rentals</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
 
 <header class="topbar">
-  <div class="brand">FS Event & Rental Hub</div>
+  <div class="brand">FS Rental</div>
   <nav>
     <a href="#home">Home</a>
     <a href="#services">Services</a>
-    <a href="#inventory">Inventory</a>
+    <a href="#inventory">Rent Now</a>
+    <a href="#how-it-works">How It Works</a>
     <a href="#contact">Contact</a>
-    <a class="ghost" href="/login.html">Admin</a>
+    <a class="ghost" href="/login.html">Admin Portal</a>
   </nav>
+  <button class="mobile-menu-btn">☰</button>
 </header>
 
+<!-- Hero Section -->
 <section id="home" class="hero">
-  <h1>Your Event’s Best Ally</h1>
-  <p>Rent chairs, tables, tents and more — book online, pay securely.</p>
-  <button id="goInventory">Browse Inventory</button>
+  <div class="hero-content">
+    <h1>Make Your Event Unforgettable</h1>
+    <p>Premium rental solutions for weddings, birthdays, corporate events, and funerals. Quality equipment, seamless booking, delivered to your doorstep.</p>
+    <div class="hero-buttons">
+      <button id="goInventory">
+        <span>📦</span> Browse Equipment
+      </button>
+      <a href="#how-it-works" class="btn btn-secondary">How It Works</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <span class="hero-stat-value">500+</span>
+      <span class="hero-stat-label">Events Served</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">200+</span>
+      <span class="hero-stat-label">Equipment Items</span>
+    </div>
+    <div class="hero-stat">
+      <span class="hero-stat-value">99%</span>
+      <span class="hero-stat-label">Happy Clients</span>
+    </div>
+  </div>
 </section>
 
+<!-- Services Section -->
 <section id="services" class="section">
-  <h2>Event Essentials</h2>
+  <div class="section-header">
+    <h2>Event Essentials, Made Simple</h2>
+    <p>From intimate gatherings to grand celebrations, we provide everything you need to create memorable events.</p>
+  </div>
+  
   <div class="cards">
-    <div class="card"><h3>Equipment Rental</h3><p>Quality items for every occasion.</p></div>
-    <div class="card"><h3>Delivery & Setup</h3><p>We can deliver and set up for you.</p></div>
-    <div class="card"><h3>Easy Booking</h3><p>Pick dates, quantities, pay online.</p></div>
-  </div>
-</section>
-
-<section id="inventory" class="section">
-  <h2>Inventory</h2>
-
-  <div class="grid2">
-    <div class="panel">
-      <h3>Pick Dates</h3>
-      <div class="row">
-        <label>Start</label>
-        <input type="date" id="startDate"/>
-      </div>
-      <div class="row">
-        <label>End</label>
-        <input type="date" id="endDate"/>
-      </div>
-
-      <h3 style="margin-top:16px;">Your Cart</h3>
-      <div id="cart"></div>
-      <div class="totalRow">
-        <span>Total</span>
-        <strong id="total">0</strong>
-      </div>
-
-      <button id="checkAvailability">Check availability</button>
-      <div id="availabilityResult" class="note"></div>
-
-      <h3 style="margin-top:16px;">Customer info</h3>
-      <div class="row"><label>Name</label><input id="custName" placeholder="Your name"/></div>
-      <div class="row"><label>Email</label><input id="custEmail" placeholder="you@email.com"/></div>
-      <div class="row"><label>Phone</label><input id="custPhone" placeholder="e.g. 024xxxxxxx"/></div>
-
-      <h3 style="margin-top:16px;">Delivery Location</h3>
-      <div class="row"><label>Address / Location</label><input id="deliveryAddress" placeholder="e.g. East Legon, near ABC"/></div>
-      <div class="row"><label>City/Town</label><input id="deliveryCity" placeholder="e.g. Accra"/></div>
-      <div class="row"><label>Landmark</label><input id="deliveryLandmark" placeholder="e.g. close to Shell station"/></div>
-
-      <button id="bookAndPay" class="primary">Book & Pay</button>
-      <div id="payMsg" class="note"></div>
-
-      <!-- shows payment result when Paystack returns -->
-      <div id="paymentStatus" class="note"></div>
+    <div class="card">
+      <div class="card-icon">🪑</div>
+      <h3>Equipment Rental</h3>
+      <p>High-quality chairs, tables, tents, sound systems, lighting, and decor items for any occasion.</p>
     </div>
-
-    <div class="panel">
-      <h3>Available Items</h3>
-      <div id="items" class="items"></div>
+    <div class="card">
+      <div class="card-icon">🚚</div>
+      <h3>Delivery & Setup</h3>
+      <p>Professional delivery and setup services across Accra and surrounding areas. Hassle-free experience.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <h3>Easy Online Booking</h3>
+      <p>Pick your dates, select equipment, and book instantly. Pay securely via Mobile Money.</p>
+    </div>
+    <div class="card">
+      <div class="card-icon">💬</div>
+      <h3>24/7 Support</h3>
+      <p>Our team is always available to help with custom packages and last-minute requests.</p>
     </div>
   </div>
 </section>
 
+<!-- Event Categories -->
+<section class="section" style="background: var(--gray-100); padding: 80px 24px; max-width: none;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-header">
+      <h2>Perfect for Every Occasion</h2>
+      <p>Whether you're planning a wedding or corporate conference, we've got you covered.</p>
+    </div>
+    
+    <div class="cards">
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 16px;">💒</div>
+        <h3>Weddings</h3>
+        <p>Create your dream wedding with our elegant chairs, tables, tents, and decor.</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 16px;">🎂</div>
+        <h3>Birthday Parties</h3>
+        <p>Make birthdays special with colorful setups and entertainment equipment.</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 16px;">🏢</div>
+        <h3>Corporate Events</h3>
+        <p>Professional equipment for conferences, meetings, and business functions.</p>
+      </div>
+      <div class="card" style="text-align: center;">
+        <div style="font-size: 3rem; margin-bottom: 16px;">🕊️</div>
+        <h3>Funeral Services</h3>
+        <p>Dignified and respectful setups for memorial services and wakes.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works -->
+<section id="how-it-works" class="section">
+  <div class="section-header">
+    <h2>How It Works</h2>
+    <p>Book your event equipment in just 4 simple steps.</p>
+  </div>
+  
+  <div class="cards" style="gap: 32px;">
+    <div class="card" style="text-align: center; position: relative;">
+      <div style="width: 48px; height: 48px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.25rem; margin: 0 auto 16px;">1</div>
+      <h3>Browse & Select</h3>
+      <p>Explore our inventory and add items to your cart.</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="width: 48px; height: 48px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.25rem; margin: 0 auto 16px;">2</div>
+      <h3>Choose Dates</h3>
+      <p>Select your event start and end dates for accurate pricing.</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="width: 48px; height: 48px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.25rem; margin: 0 auto 16px;">3</div>
+      <h3>Pay via MoMo</h3>
+      <p>Complete payment securely using Mobile Money.</p>
+    </div>
+    <div class="card" style="text-align: center;">
+      <div style="width: 48px; height: 48px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.25rem; margin: 0 auto 16px;">4</div>
+      <h3>We Deliver</h3>
+      <p>Sit back as we deliver and set up your equipment.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Inventory / Booking Section -->
+<section id="inventory" class="section" style="background: white; padding: 80px 24px; max-width: none;">
+  <div style="max-width: 1200px; margin: 0 auto;">
+    <div class="section-header">
+      <h2>Book Your Equipment</h2>
+      <p>Select items, choose your dates, and complete your booking in minutes.</p>
+    </div>
+
+    <div class="grid2">
+      <!-- Left Panel: Cart & Booking Form -->
+      <div class="panel">
+        <h3>Select Dates</h3>
+        <div class="date-range">
+          <div class="row">
+            <label>Start Date</label>
+            <input type="date" id="startDate"/>
+          </div>
+          <div class="row">
+            <label>End Date</label>
+            <input type="date" id="endDate"/>
+          </div>
+        </div>
+
+        <h3 style="margin-top: 24px;">Your Cart</h3>
+        <div id="cart">
+          <div class="empty-state" style="padding: 24px 0;">
+            <div class="empty-state-icon">🛒</div>
+            <p class="muted">Your cart is empty.<br>Add items from the inventory.</p>
+          </div>
+        </div>
+        
+        <div class="totalRow">
+          <span>Total Amount</span>
+          <strong id="total">GHS 0.00</strong>
+        </div>
+
+        <button id="checkAvailability" class="secondary-btn" style="width: 100%; margin-bottom: 12px;">
+          Check Availability
+        </button>
+        <div id="availabilityResult" class="note"></div>
+
+        <h3 style="margin-top: 24px;">Customer Information</h3>
+        <div class="row">
+          <label>Full Name *</label>
+          <input id="custName" placeholder="Enter your full name"/>
+        </div>
+        <div class="row">
+          <label>Email Address *</label>
+          <input id="custEmail" type="email" placeholder="you@email.com"/>
+        </div>
+        <div class="row">
+          <label>Phone Number *</label>
+          <input id="custPhone" type="tel" placeholder="e.g. 0598382866"/>
+        </div>
+
+        <h3 style="margin-top: 24px;">Delivery Location</h3>
+        <div class="row">
+          <label>Address / Location *</label>
+          <input id="deliveryAddress" placeholder="e.g. East Legon, near ABC"/>
+        </div>
+        <div class="row">
+          <label>City / Town *</label>
+          <input id="deliveryCity" placeholder="e.g. Accra"/>
+        </div>
+        <div class="row">
+          <label>Landmark (Optional)</label>
+          <input id="deliveryLandmark" placeholder="e.g. close to Shell station"/>
+        </div>
+
+        <button id="bookAndPay" class="primary" style="margin-top: 8px;">
+          Complete Booking
+        </button>
+        
+        <div id="payMsg"></div>
+        <div id="paymentStatus"></div>
+      </div>
+
+      <!-- Right Panel: Inventory Items -->
+      <div class="equipment-panel">
+        <div class="panel equipment-container">
+          <h3>Available Equipment</h3>
+          
+          <!-- Category Filter -->
+          <div class="categories" id="categoryFilter">
+            <button class="category-pill active" data-category="all">All Items</button>
+            <button class="category-pill" data-category="seating">Seating</button>
+            <button class="category-pill" data-category="tents">Tents & Canopy</button>
+            <button class="category-pill" data-category="sound">Sound & Lighting</button>
+            <button class="category-pill" data-category="decor">Decor</button>
+          </div>
+          
+          <!-- Scrollable Items Container -->
+          <div class="items-scroll-container">
+            <div id="items" class="items-grid">
+              <div class="loading" style="grid-column: 1/-1; text-align: center; padding: 48px;">
+                <div class="spinner" style="margin: 0 auto 16px;"></div>
+                <p class="muted">Loading inventory...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="section" style="background: linear-gradient(135deg, var(--primary), var(--primary-dark)); padding: 80px 24px; max-width: none;">
+  <div style="max-width: 900px; margin: 0 auto; text-align: center; color: white;">
+    <h2 style="color: white; margin-bottom: 32px;">What Our Clients Say</h2>
+    <div style="background: rgba(255,255,255,0.1); padding: 32px; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
+      <p style="font-size: 1.25rem; font-style: italic; margin-bottom: 24px; opacity: 0.95;">
+        "FS Rental made our wedding day perfect! The equipment was top quality, delivery was on time, and the team was incredibly professional. Highly recommended!"
+      </p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👰</div>
+        <div style="text-align: left;">
+          <strong>Akosua Mensah</strong>
+          <p style="opacity: 0.8; font-size: 0.9rem;">Wedding, December 2025</p>
+        </div>
+      </div>
+    </div>
+    <br/> <br/>
+    <div style="background: rgba(255,255,255,0.1); padding: 32px; border-radius: var(--radius-lg); backdrop-filter: blur(10px);">
+      <p style="font-size: 1.25rem; font-style: italic; margin-bottom: 24px; opacity: 0.95;">
+        "They made our funeral arrangements so much easier during a difficult time. The team was compassionate, the setup was dignified, and everything went smoothly. We are grateful for their support."
+      </p>
+      <div style="display: flex; align-items: center; justify-content: center; gap: 12px;">
+        <div style="width: 48px; height: 48px; background: rgba(255,255,255,0.3); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem;">👰</div>
+        <div style="text-align: left;">
+          <strong>Yaw Manu</strong>
+          <p style="opacity: 0.8; font-size: 0.9rem;">Funeral, January 2025</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
 <section id="contact" class="section">
-  <h2>Contact</h2>
-  <p class="muted">Need delivery, setup, or custom packages? Message us.</p>
+  <div class="section-header">
+    <h2>Get in Touch</h2>
+    <p>Have questions or need a custom package? We're here to help!</p>
+  </div>
+  
   <div class="contactBox">
-    <div><strong>Phone:</strong> +233 598 382 866</div>
-    <div><strong>Email:</strong> info@eventrentalhub.com</div>
+    <div class="contact-item">
+      <div class="contact-icon">📞</div>
+      <div>
+        <strong>Phone / WhatsApp</strong>
+        <span>+233 553319320</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📧</div>
+      <div>
+        <strong>Email</strong>
+        <span>info@fsrental.com</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">📍</div>
+      <div>
+        <strong>Location</strong>
+        <span>Koforidua, Ghana</span>
+      </div>
+    </div>
+    <div class="contact-item">
+      <div class="contact-icon">⏰</div>
+      <div>
+        <strong>Hours</strong>
+        <span>Mon - Sat: 8am - 6pm</span>
+      </div>
+    </div>
   </div>
 </section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-content">
+    <div>
+      <h4>FS Rental</h4>
+      <p>Your trusted partner for quality event rental solutions. Making events memorable since 2020.</p>
+    </div>
+    <div>
+      <h4>Quick Links</h4>
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#inventory">Book Equipment</a>
+      <a href="#contact">Contact Us</a>
+    </div>
+    <div>
+      <h4>Our Services</h4>
+      <a href="#">Chair Rentals</a>
+      <a href="#">Table Rentals</a>
+      <a href="#">Tent & Canopy</a>
+      <a href="#">Sound Systems</a>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p>+233 553319320</p>
+      <p>info@fsrental.com</p>
+      <p>Koforidua, Ghana</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>2026 FS Rental. All rights reserved.</p>
+  </div>
+</footer>
 
 <script src="app.js"></script>
 </body>

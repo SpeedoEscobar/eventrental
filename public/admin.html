@@ -1,56 +1,941 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Dashboard</title>
+  <title>Admin Dashboard - F S Rental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    /* Admin-specific styles */
+    .admin-layout {
+      display: grid;
+      grid-template-columns: 260px 1fr;
+      min-height: 100vh;
+    }
+    
+    @media (max-width: 900px) {
+      .admin-layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        display: none;
+      }
+    }
+    
+    .sidebar {
+      background: var(--gray-900);
+      color: white;
+      padding: 24px 0;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    
+    .sidebar-brand {
+      padding: 0 24px 24px;
+      border-bottom: 1px solid var(--gray-700);
+      margin-bottom: 24px;
+    }
+    
+    .sidebar-brand h2 {
+      color: white;
+      font-size: 1.25rem;
+      margin-bottom: 4px;
+    }
+    
+    .sidebar-brand span {
+      color: var(--gray-400);
+      font-size: 0.85rem;
+    }
+    
+    .sidebar-nav {
+      padding: 0 12px;
+    }
+    
+    .sidebar-nav a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      color: var(--gray-400);
+      text-decoration: none;
+      border-radius: var(--radius);
+      margin-bottom: 4px;
+      transition: var(--transition);
+    }
+    
+    .sidebar-nav a:hover,
+    .sidebar-nav a.active {
+      background: rgba(255,255,255,0.1);
+      color: white;
+    }
+    
+    .sidebar-nav a.active {
+      background: var(--primary);
+    }
+    
+    .sidebar-nav .nav-icon {
+      font-size: 1.2rem;
+    }
+    
+    .sidebar-section {
+      padding: 16px 24px 8px;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray-500);
+    }
+    
+    .main-content {
+      padding: 32px;
+      background: var(--gray-50);
+    }
+    
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 32px;
+    }
+    
+    .page-header h1 {
+      font-size: 1.75rem;
+    }
+    
+    .page-header .btn-group {
+      display: flex;
+      gap: 12px;
+    }
+    
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow);
+    }
+    
+    .stat-card .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 16px;
+    }
+    
+    .stat-card .stat-icon.blue { background: #dbeafe; }
+    .stat-card .stat-icon.green { background: #d1fae5; }
+    .stat-card .stat-icon.yellow { background: #fef3c7; }
+    .stat-card .stat-icon.purple { background: #ede9fe; }
+    
+    .stat-card .stat-label {
+      color: var(--gray-500);
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+    }
+    
+    .stat-card .stat-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gray-900);
+    }
+    
+    .content-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--gray-100);
+      box-shadow: var(--shadow);
+      margin-bottom: 24px;
+    }
+    
+    .content-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--gray-100);
+    }
+    
+    .content-card-header h3 {
+      font-size: 1.1rem;
+      margin: 0;
+    }
+    
+    .content-card-body {
+      padding: 24px;
+    }
+    
+    .table-container {
+      overflow-x: auto;
+    }
+    
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    .data-table th {
+      text-align: left;
+      padding: 12px 16px;
+      background: var(--gray-50);
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    
+    .data-table td {
+      padding: 16px;
+      border-bottom: 1px solid var(--gray-100);
+      vertical-align: top;
+    }
+    
+    .data-table tr:hover {
+      background: var(--gray-50);
+    }
+    
+    .booking-customer {
+      font-weight: 600;
+      color: var(--gray-900);
+    }
+    
+    .booking-customer small {
+      display: block;
+      font-weight: 400;
+      color: var(--gray-500);
+      margin-top: 2px;
+    }
+    
+    .booking-items {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+    }
+    
+    .booking-amount {
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .action-btn {
+      padding: 6px 12px;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .action-btn.success {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    .action-btn.danger {
+      background: #fee2e2;
+      color: #991b1b;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-1px);
+    }
+    
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .tab-content {
+      display: none;
+    }
+    
+    .tab-content.active {
+      display: block;
+    }
+    
+    .filter-bar {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    
+    .filter-bar select,
+    .filter-bar input {
+      padding: 10px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-size: 0.9rem;
+    }
+    
+    .quick-actions {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    
+    /* Image Gallery Styles */
+    .image-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+      gap: 12px;
+      margin-top: 8px;
+    }
+    
+    .gallery-item {
+      cursor: pointer;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      padding: 8px;
+      text-align: center;
+      transition: var(--transition);
+    }
+    
+    .gallery-item:hover {
+      border-color: var(--primary);
+      background: var(--primary-bg);
+    }
+    
+    .gallery-item.selected {
+      border-color: var(--primary);
+      background: var(--primary-bg);
+    }
+    
+    .gallery-item img {
+      width: 100%;
+      height: 50px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+    }
+    
+    .gallery-item span {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--gray-600);
+      margin-top: 4px;
+    }
+    
+    .image-preview-container {
+      position: relative;
+      display: inline-block;
+    }
+    
+    .image-preview-container img {
+      max-width: 200px;
+      max-height: 150px;
+      border-radius: var(--radius);
+      border: 2px solid var(--gray-200);
+    }
+    
+    .remove-image-btn {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--danger);
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .item-image-cell {
+      width: 60px;
+    }
+    
+    .item-image {
+      width: 50px;
+      height: 50px;
+      object-fit: cover;
+      border-radius: var(--radius-sm);
+      background: var(--gray-100);
+    }
+    
+    .item-image-placeholder {
+      width: 50px;
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gray-100);
+      border-radius: var(--radius-sm);
+      font-size: 1.5rem;
+    }
+    
+    .mobile-header {
+      display: none;
+      background: var(--gray-900);
+      color: white;
+      padding: 16px 20px;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    @media (max-width: 900px) {
+      .mobile-header {
+        display: flex;
+      }
+      .main-content {
+        padding: 16px;
+      }
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      .stat-card {
+        padding: 16px;
+      }
+      .stat-card .stat-value {
+        font-size: 1.5rem;
+      }
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .page-header h1 {
+        font-size: 1.5rem;
+      }
+      .content-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+      .filter-bar {
+        flex-direction: column;
+      }
+      .filter-bar select,
+      .filter-bar input {
+        width: 100%;
+      }
+      .data-table th,
+      .data-table td {
+        padding: 10px 8px;
+        font-size: 0.85rem;
+      }
+      .quick-actions {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .action-btn {
+        width: 100%;
+        text-align: center;
+      }
+      .image-gallery {
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .booking-items {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+    
+    @media (max-width: 600px) {
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+      .image-gallery {
+        grid-template-columns: repeat(3, 1fr);
+      }
+      /* Hide less important columns on very small screens */
+      .data-table .hide-mobile {
+        display: none;
+      }
+    }
+    
+    /* Mobile Bottom Navigation */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--gray-900);
+      padding: 8px 0;
+      padding-bottom: env(safe-area-inset-bottom, 8px);
+      z-index: 1000;
+      box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    }
+    
+    @media (max-width: 900px) {
+      .mobile-bottom-nav {
+        display: flex;
+        justify-content: space-around;
+      }
+      
+      .main-content {
+        padding-bottom: 80px;
+      }
+    }
+    
+    .mobile-bottom-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      color: var(--gray-400);
+      text-decoration: none;
+      font-size: 0.7rem;
+      padding: 4px 8px;
+      transition: var(--transition);
+    }
+    
+    .mobile-bottom-nav a.active {
+      color: var(--primary-light);
+    }
+    
+    .mobile-bottom-nav a:hover {
+      color: white;
+    }
+    
+    .mobile-bottom-nav .nav-icon {
+      font-size: 1.25rem;
+    }
+  </style>
 </head>
 <body>
 
-<header class="topbar">
-  <div class="brand">Admin • Event Rental Hub</div>
-  <nav>
-    <a href="/" class="ghost">Back to site</a>
-    <a href="#" id="logout">Logout</a>
-  </nav>
-</header>
-
-<div class="section">
-  <h2>Inventory</h2>
-  <div class="panel">
-    <div class="grid2">
-      <div>
-        <h3>Add Item</h3>
-        <div class="row"><label>Name</label><input id="iName"/></div>
-        <div class="row"><label>Description</label><input id="iDesc"/></div>
-        <div class="row"><label>Price per day (GHS)</label><input id="iPrice" type="number" step="0.01"/></div>
-        <div class="row"><label>Total quantity</label><input id="iQty" type="number"/></div>
-        <button class="primary" id="addItem">Add</button>
-        <div class="note" id="itemMsg"></div>
-      </div>
-      <div>
-        <h3>Items</h3>
-        <div id="itemsList"></div>
-      </div>
-    </div>
-  </div>
-
-  <h2 style="margin-top:26px;">Bookings (Calendar view)</h2>
-  <div class="panel">
-    <div class="grid2">
-      <div>
-        <div class="row"><label>Start date</label><input id="bStart" type="date"/></div>
-        <div class="row"><label>End date</label><input id="bEnd" type="date"/></div>
-        <button id="loadBookings">Load bookings</button>
-        <div class="note muted">Shows bookings that overlap your date range.</div>
-      </div>
-      <div>
-        <div id="bookingsList"></div>
-      </div>
-    </div>
+<div class="mobile-header">
+  <h2 style="font-size: 1.1rem; margin: 0;">F S Rental Admin</h2>
+  <div>
+    <a href="/" style="color: var(--gray-300); margin-right: 16px;">Home</a>
+    <a href="#" id="logoutMobile" style="color: var(--gray-300);">Logout</a>
   </div>
 </div>
+
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <h2>🎪 F S Rental</h2>
+      <span>Admin Dashboard</span>
+    </div>
+    
+    <nav class="sidebar-nav">
+      <a href="#" class="active" data-tab="dashboard">
+        <span class="nav-icon">📊</span>
+        Dashboard
+      </a>
+      <a href="#" data-tab="bookings">
+        <span class="nav-icon">📅</span>
+        Bookings
+      </a>
+      <a href="#" data-tab="inventory">
+        <span class="nav-icon">📦</span>
+        Inventory
+      </a>
+      <a href="#" data-tab="customers">
+        <span class="nav-icon">👥</span>
+        Customers
+      </a>
+      <a href="#" data-tab="reports">
+        <span class="nav-icon">📈</span>
+        Reports
+      </a>
+      
+      <div class="sidebar-section">System</div>
+      <a href="/">
+        <span class="nav-icon">🏠</span>
+        View Website
+      </a>
+      <a href="#" id="logout">
+        <span class="nav-icon">🚪</span>
+        Logout
+      </a>
+    </nav>
+  </aside>
+  
+  <!-- Main Content -->
+  <main class="main-content">
+    
+    <!-- Dashboard Tab -->
+    <div id="tab-dashboard" class="tab-content active">
+      <div class="page-header">
+        <div>
+          <h1>Dashboard</h1>
+          <p class="muted">Welcome back! Here's what's happening today.</p>
+        </div>
+      </div>
+      
+      <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+          <div class="stat-icon blue">📅</div>
+          <div class="stat-label">Total Bookings</div>
+          <div class="stat-value" id="statTotalBookings">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">✅</div>
+          <div class="stat-label">Confirmed (Paid)</div>
+          <div class="stat-value" id="statPaidBookings">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon yellow">⏳</div>
+          <div class="stat-label">Awaiting Payment</div>
+          <div class="stat-value" id="statPendingBookings">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">💰</div>
+          <div class="stat-label">Total Revenue</div>
+          <div class="stat-value" id="statRevenue">-</div>
+        </div>
+      </div>
+      
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3>Recent Bookings</h3>
+          <button class="action-btn" onclick="switchTab('bookings')">View All</button>
+        </div>
+        <div class="content-card-body">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Customer</th>
+                  <th>Event Date</th>
+                  <th>Items</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="recentBookings">
+                <tr><td colspan="7" class="muted" style="text-align: center;">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bookings Tab -->
+    <div id="tab-bookings" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h1>Bookings</h1>
+          <p class="muted">Manage all customer bookings and reservations.</p>
+        </div>
+      </div>
+      
+      <div class="filter-bar">
+        <select id="bookingStatusFilter">
+          <option value="all">All Statuses</option>
+          <option value="awaiting_payment">Awaiting Payment</option>
+          <option value="paid">Paid / Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="cancelled">Cancelled</option>
+        </select>
+        <input type="date" id="bookingStartFilter" placeholder="From Date"/>
+        <input type="date" id="bookingEndFilter" placeholder="To Date"/>
+        <button class="action-btn" id="applyBookingFilter" style="background: var(--primary); color: white;">Apply Filter</button>
+      </div>
+      
+      <div class="content-card">
+        <div class="content-card-body" style="padding: 0;">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Reference</th>
+                  <th>Customer</th>
+                  <th>Contact</th>
+                  <th>Event Dates</th>
+                  <th>Delivery</th>
+                  <th>Items</th>
+                  <th>Amount</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="allBookings">
+                <tr><td colspan="9" class="muted" style="text-align: center;">Loading bookings...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Inventory Tab -->
+    <div id="tab-inventory" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h1>Inventory</h1>
+          <p class="muted">Manage your rental equipment and items.</p>
+        </div>
+      </div>
+      
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3>Add New Item</h3>
+        </div>
+        <div class="content-card-body">
+          <div class="form-grid">
+            <div class="row">
+              <label>Item Name *</label>
+              <input id="iName" placeholder="e.g. Plastic Chairs (White)"/>
+            </div>
+            <div class="row">
+              <label>Category *</label>
+              <select id="iCategory">
+                <option value="">Select category</option>
+                <option value="seating">Seating (Chairs, Tables)</option>
+                <option value="tents">Tents & Canopy</option>
+                <option value="sound">Sound & Lighting</option>
+                <option value="decor">Decor & Accessories</option>
+              </select>
+            </div>
+            <div class="row">
+              <label>Price per Day (GHS) *</label>
+              <input id="iPrice" type="number" step="0.01" placeholder="e.g. 5.00"/>
+            </div>
+            <div class="row">
+              <label>Total Quantity *</label>
+              <input id="iQty" type="number" placeholder="e.g. 200"/>
+            </div>
+            <div class="row" style="grid-column: 1/-1;">
+              <label>Description</label>
+              <input id="iDesc" placeholder="Brief description of the item"/>
+            </div>
+            <div class="row" style="grid-column: 1/-1;">
+              <label>Image URL</label>
+              <input id="iImageUrl" placeholder="Paste image URL or select from gallery below"/>
+            </div>
+            <div class="row" style="grid-column: 1/-1;">
+              <label>Quick Image Gallery (click to select)</label>
+              <div class="image-gallery" id="imageGallery">
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1503602642458-232111445657?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1503602642458-232111445657?w=100&q=60" alt="Chairs"/>
+                  <span>Chairs</span>
+                </div>
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=100&q=60" alt="Tables"/>
+                  <span>Tables</span>
+                </div>
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1478827536114-da961b7f86d2?w=100&q=60" alt="Tent"/>
+                  <span>Tent</span>
+                </div>
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=100&q=60" alt="Sound"/>
+                  <span>Sound</span>
+                </div>
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1504501650895-2441b7915699?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1504501650895-2441b7915699?w=100&q=60" alt="Lights"/>
+                  <span>Lights</span>
+                </div>
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=100&q=60" alt="Decor"/>
+                  <span>Decor</span>
+                </div>
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1519741347686-c1e0aadf4611?w=100&q=60" alt="Flowers"/>
+                  <span>Flowers</span>
+                </div>
+                <div class="gallery-item" data-url="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=400&q=80">
+                  <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=100&q=60" alt="Carpet"/>
+                  <span>Carpet</span>
+                </div>
+              </div>
+            </div>
+            <div class="row" id="imagePreviewRow" style="grid-column: 1/-1; display: none;">
+              <label>Image Preview</label>
+              <div class="image-preview-container">
+                <img id="imagePreview" src="" alt="Preview"/>
+                <button type="button" class="remove-image-btn" onclick="clearImageSelection()">✕</button>
+              </div>
+            </div>
+          </div>
+          <button class="primary" id="addItem" style="margin-top: 16px; width: auto; padding: 12px 32px;">
+            + Add Item
+          </button>
+          <div id="itemMsg" class="note" style="margin-top: 12px;"></div>
+        </div>
+      </div>
+      
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3>All Items</h3>
+          <span class="badge badge-primary" id="itemCount">0 items</span>
+        </div>
+        <div class="content-card-body" style="padding: 0;">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th class="item-image-cell">Image</th>
+                  <th>Item</th>
+                  <th>Category</th>
+                  <th>Price/Day</th>
+                  <th>Quantity</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="itemsList">
+                <tr><td colspan="7" class="muted" style="text-align: center;">Loading items...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Customers Tab -->
+    <div id="tab-customers" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h1>Customers</h1>
+          <p class="muted">View customer information and booking history.</p>
+        </div>
+      </div>
+      
+      <div class="content-card">
+        <div class="content-card-body" style="padding: 0;">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Customer</th>
+                  <th>Contact</th>
+                  <th>Total Bookings</th>
+                  <th>Total Spent</th>
+                  <th>Last Booking</th>
+                </tr>
+              </thead>
+              <tbody id="customersList">
+                <tr><td colspan="5" class="muted" style="text-align: center;">Loading customers...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Reports Tab -->
+    <div id="tab-reports" class="tab-content">
+      <div class="page-header">
+        <div>
+          <h1>Reports & Analytics</h1>
+          <p class="muted">View business insights and generate reports.</p>
+        </div>
+      </div>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon green">💰</div>
+          <div class="stat-label">This Month's Revenue</div>
+          <div class="stat-value" id="monthRevenue">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">📅</div>
+          <div class="stat-label">This Month's Bookings</div>
+          <div class="stat-value" id="monthBookings">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon yellow">📦</div>
+          <div class="stat-label">Most Rented Item</div>
+          <div class="stat-value" id="topItem" style="font-size: 1.2rem;">-</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon purple">⭐</div>
+          <div class="stat-label">Average Order Value</div>
+          <div class="stat-value" id="avgOrder">-</div>
+        </div>
+      </div>
+      
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3>Revenue by Status</h3>
+        </div>
+        <div class="content-card-body">
+          <div id="revenueBreakdown" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px;">
+            <!-- Revenue breakdown will be populated here -->
+          </div>
+        </div>
+      </div>
+      
+      <div class="content-card">
+        <div class="content-card-header">
+          <h3>Item Popularity</h3>
+        </div>
+        <div class="content-card-body" style="padding: 0;">
+          <div class="table-container">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Item</th>
+                  <th>Times Rented</th>
+                  <th>Total Quantity Rented</th>
+                  <th>Revenue Generated</th>
+                </tr>
+              </thead>
+              <tbody id="itemPopularity">
+                <tr><td colspan="4" class="muted" style="text-align: center;">Loading...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+  </main>
+</div>
+
+<!-- Mobile Bottom Navigation -->
+<nav class="mobile-bottom-nav">
+  <a href="#" class="active" data-tab="dashboard">
+    <span class="nav-icon">📊</span>
+    <span>Dashboard</span>
+  </a>
+  <a href="#" data-tab="bookings">
+    <span class="nav-icon">📅</span>
+    <span>Bookings</span>
+  </a>
+  <a href="#" data-tab="inventory">
+    <span class="nav-icon">📦</span>
+    <span>Items</span>
+  </a>
+  <a href="#" data-tab="customers">
+    <span class="nav-icon">👥</span>
+    <span>Customers</span>
+  </a>
+  <a href="#" data-tab="reports">
+    <span class="nav-icon">📈</span>
+    <span>Reports</span>
+  </a>
+</nav>
 
 <script src="admin.js"></script>
 </body>

@@ -1,37 +1,265 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Admin Login</title>
+  <title>Admin Login - FS Rental</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css"/>
+  <style>
+    .login-page {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      padding: 24px;
+    }
+    
+    .login-container {
+      width: 100%;
+      max-width: 420px;
+    }
+    
+    .login-card {
+      background: white;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-xl);
+      padding: 48px 40px;
+    }
+    
+    .login-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+    
+    .login-logo {
+      font-size: 3rem;
+      margin-bottom: 16px;
+    }
+    
+    .login-header h1 {
+      font-size: 1.5rem;
+      margin-bottom: 8px;
+      color: var(--gray-900);
+    }
+    
+    .login-header p {
+      color: var(--gray-500);
+      font-size: 0.95rem;
+    }
+    
+    .login-form .row {
+      margin-bottom: 20px;
+    }
+    
+    .login-form .row label {
+      font-weight: 600;
+      color: var(--gray-700);
+      margin-bottom: 8px;
+      display: block;
+    }
+    
+    .login-form .row input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      font-size: 1rem;
+      transition: var(--transition);
+    }
+    
+    .login-form .row input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-bg);
+    }
+    
+    .login-btn {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      margin-top: 8px;
+    }
+    
+    .login-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+    }
+    
+    .login-btn:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .login-footer {
+      text-align: center;
+      margin-top: 24px;
+    }
+    
+    .login-footer a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    
+    .login-footer a:hover {
+      text-decoration: underline;
+    }
+    
+    .login-message {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      margin-bottom: 20px;
+      font-size: 0.9rem;
+      display: none;
+    }
+    
+    .login-message.error {
+      display: block;
+      background: #fef2f2;
+      color: #991b1b;
+      border: 1px solid #fecaca;
+    }
+    
+    .login-message.success {
+      display: block;
+      background: #ecfdf5;
+      color: #065f46;
+      border: 1px solid #a7f3d0;
+    }
+    
+    .back-link {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      color: white;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 500;
+      opacity: 0.9;
+    }
+    
+    .back-link:hover {
+      opacity: 1;
+    }
+  </style>
 </head>
 <body>
-  <div class="section" style="max-width:520px;">
-    <h2>Admin Login</h2>
-    <div class="panel">
-      <div class="row"><label>Email</label><input id="email" type="email" placeholder="admin@..."/></div>
-      <div class="row"><label>Password</label><input id="password" type="password" placeholder="••••••••"/></div>
-      <button class="primary" id="loginBtn">Login</button>
-      <div class="note" id="msg"></div>
+  <a href="/" class="back-link">← Back to Website</a>
+  
+  <div class="login-page">
+    <div class="login-container">
+      <div class="login-card">
+        <div class="login-header">
+          <div class="login-logo">🎪</div>
+          <h1>Welcome Back</h1>
+          <p>Sign in to access the admin dashboard</p>
+        </div>
+        
+        <div id="msg" class="login-message"></div>
+        
+        <form class="login-form" id="loginForm">
+          <div class="row">
+            <label for="email">Email Address</label>
+            <input 
+              id="email" 
+              type="email" 
+              placeholder="admin@fsrental.com"
+              autocomplete="email"
+              required
+            />
+          </div>
+          
+          <div class="row">
+            <label for="password">Password</label>
+            <input 
+              id="password" 
+              type="password" 
+              placeholder="Enter your password"
+              autocomplete="current-password"
+              required
+            />
+          </div>
+          
+          <button type="submit" class="login-btn" id="loginBtn">
+            Sign In
+          </button>
+        </form>
+        
+        <div class="login-footer">
+          <a href="/">← Return to F S Rental</a>
+        </div>
+      </div>
     </div>
   </div>
+
 <script>
-document.getElementById("loginBtn").onclick = async () => {
+document.getElementById("loginForm").onsubmit = async (e) => {
+  e.preventDefault();
+  
   const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value.trim();
   const msg = document.getElementById("msg");
+  const btn = document.getElementById("loginBtn");
+  
+  msg.className = "login-message";
   msg.textContent = "";
-
-  const res = await fetch("/api/auth/login", {
-    method:"POST",
-    headers:{ "Content-Type":"application/json" },
-    body: JSON.stringify({ email, password })
-  });
-  const data = await res.json();
-  if(!res.ok) return msg.textContent = data.error || "Login failed";
-  localStorage.setItem("token", data.token);
-  window.location.href = "/admin.html";
+  
+  if (!email || !password) {
+    msg.className = "login-message error";
+    msg.textContent = "Please enter your email and password.";
+    return;
+  }
+  
+  btn.disabled = true;
+  btn.textContent = "Signing in...";
+  
+  try {
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password })
+    });
+    
+    const data = await res.json();
+    
+    if (!res.ok) {
+      msg.className = "login-message error";
+      msg.textContent = data.error || "Invalid email or password.";
+      btn.disabled = false;
+      btn.textContent = "Sign In";
+      return;
+    }
+    
+    // Success - store token and redirect
+    localStorage.setItem("token", data.token);
+    
+    msg.className = "login-message success";
+    msg.textContent = "Login successful! Redirecting...";
+    
+    setTimeout(() => {
+      window.location.href = "/admin.html";
+    }, 500);
+    
+  } catch (err) {
+    msg.className = "login-message error";
+    msg.textContent = "Connection error. Make sure the server is running.";
+    btn.disabled = false;
+    btn.textContent = "Sign In";
+  }
 };
 </script>
 </body>
