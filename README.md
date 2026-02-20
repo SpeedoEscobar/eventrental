@@ -45,7 +45,6 @@ A comprehensive digital management system for event rental services, designed fo
    ```
 
 3. Configure environment variables:
-   - Copy `.env.example` to `.env`
    - Update the values as needed:
    ```env
    PORT=3000
@@ -71,9 +70,6 @@ A comprehensive digital management system for event rental services, designed fo
    - Website: http://localhost:3000
    - Admin Login: http://localhost:3000/login.html
 
-### Default Admin Credentials
-- Email: `admin@fsrental.com`
-- Password: `admin123`
 
 **Important:** Change these credentials in production!
 
@@ -169,7 +165,7 @@ Currently uses manual MoMo instructions. For automated payments, integrate with:
 ## Support
 
 For questions or issues, contact:
-- Phone: +233 598 382 866
+- Phone: +233 0553319320
 - Email: info@fsrental.com
 
 ## License
@@ -178,4 +174,4 @@ This project was created for F S Rental as part of a digital transformation init
 
 ---
 
-Built with ❤️ for F S Rental
+Built with ❤️ for FS Rental
